@@ -130,7 +130,10 @@ class _HomePageState extends State<HomePage> {
             SizedBox(height: 16.0),
             ElevatedButton(
               onPressed: _openAddTaskPage,
-              child: Text('Add Task'),
+              child: Text('Add Task',style: TextStyle(color: Color(0xFF5C699F)),),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Color(0xFF3B3B3B),
+              ),
             ),
           ],
         ),

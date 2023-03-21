@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'home_page.dart';
-import '../models/task.dart';
+import 'package:taskt_mangament/widgets/home_page.dart';
+import 'package:taskt_mangament/models/task.dart';
 
 class AddTaskPage extends StatefulWidget {
   final Function(Task) addTaskCallback;
@@ -32,6 +32,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xFF1C1C1C),
       appBar: AppBar(
         title: Text('Add Task'),
       ),
@@ -44,14 +45,22 @@ class _AddTaskPageState extends State<AddTaskPage> {
               controller: _titleController,
               decoration: InputDecoration(
                 labelText: 'Title',
+                labelStyle: TextStyle(
+                  color: Colors.white
+                ),
               ),
+              style: TextStyle(color: Colors.white),
             ),
             SizedBox(height: 16.0),
             TextField(
               controller: _descriptionController,
               decoration: InputDecoration(
                 labelText: 'Description',
+                labelStyle: TextStyle(
+                  color: Colors.white
+                )
               ),
+              style: TextStyle(color: Colors.white),
             ),
             SizedBox(height: 16.0),
             ElevatedButton(
@@ -68,7 +77,10 @@ class _AddTaskPageState extends State<AddTaskPage> {
                   Navigator.pop(context);
                 }
               },
-              child: Text('Add Task'),
+              child: Text('Add Task',style: TextStyle(color: Color(0xFF5C699F)),),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Color(0xFF3B3B3B),
+              ),
             ),
           ],
         ),

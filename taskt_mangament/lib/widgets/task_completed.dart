@@ -38,7 +38,7 @@ class TaskCompleted extends StatelessWidget {
               decoration: TextDecoration.lineThrough,
               color: Colors.white),
         ),
-        subtitle: Text(taskDescription),
+        subtitle: Text(taskDescription, style:  TextStyle(color: Colors.grey),),
         trailing: IconButton(
           icon: Icon(
             Icons.delete,

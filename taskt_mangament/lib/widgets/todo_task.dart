@@ -33,7 +33,7 @@ class ToDoTask extends StatelessWidget {
           checkColor: Color(0xFF363636),
         ),
         title: Text(taskName, style: TextStyle(color: Colors.white)),
-        subtitle: Text(taskDescription),
+        subtitle: Text(taskDescription, style:  TextStyle(color: Colors.grey),),
         trailing: IconButton(
           icon: Icon(
             Icons.delete,

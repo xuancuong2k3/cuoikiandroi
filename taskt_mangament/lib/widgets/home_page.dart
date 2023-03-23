@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:taskt_mangament/widgets/drawer.dart';
 import 'package:taskt_mangament/widgets/task_completed.dart';
 import 'package:taskt_mangament/widgets/todo_task.dart';
 import 'add_task_page.dart';
@@ -11,9 +12,9 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   List<Task> tasks = [
-    Task(title: "Task 1", description: "Description 1"),
-    Task(title: "Task 2", description: "Description 2"),
-    Task(title: "Task 3", description: "Description 3"),
+    Task(title: "Task 1", description: "Description 1", dateTime: DateTime.now()),
+    Task(title: "Task 2", description: "Description 2", dateTime: DateTime.now()),
+    Task(title: "Task 3", description: "Description 3", dateTime: DateTime.now()),
   ];
 
   List<Task> completedTasks = [];
@@ -35,7 +36,6 @@ class _HomePageState extends State<HomePage> {
       if (tasks[index].completed) {
         completedTasks.add(tasks[index]);
         tasks.removeAt(index);
-        completedTasks.sort((a, b) => a.title.compareTo(b.title));
       }
     });
   }
@@ -46,7 +46,6 @@ class _HomePageState extends State<HomePage> {
       if (!completedTasks[index].completed) {
         tasks.add(completedTasks[index]);
         completedTasks.removeAt(index);
-        tasks.sort((a, b) => a.title.compareTo(b.title));
       }
     });
   }
@@ -65,7 +64,9 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    tasks.sort((a, b) => a.dateTime.compareTo(b.dateTime));
     return Scaffold(
+      drawer: Drawers(),
       backgroundColor: Color(0xFF1C1C1C),
       appBar: AppBar(
         title: Text('Task Manager'),
@@ -97,6 +98,7 @@ class _HomePageState extends State<HomePage> {
                     deleteFunction: () {
                       deleteTask(index);
                     },
+                    dateTime: tasks[index].dateTime,
                   );
                 },
               ),
@@ -123,6 +125,7 @@ class _HomePageState extends State<HomePage> {
                     deleteFunction: () {
                       deleteTaskCompleted(index);
                     },
+                    dateTime: completedTasks[index].dateTime,
                   );
                 },
               ),

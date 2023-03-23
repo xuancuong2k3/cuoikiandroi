@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import '../models/task.dart';
+import 'package:intl/intl.dart';
 
 class TaskCompleted extends StatelessWidget {
   final String taskName;
   final bool taskCompleted;
   final String taskDescription;
+  final DateTime dateTime;
   Function(bool?)? onChanged;
   VoidCallback? deleteFunction;
 
@@ -13,12 +14,15 @@ class TaskCompleted extends StatelessWidget {
     required this.taskName,
     required this.taskDescription,
     required this.taskCompleted,
+    required this.dateTime,
     required this.onChanged,
     required this.deleteFunction,
   });
 
   @override
   Widget build(BuildContext context) {
+    String formattedDate = DateFormat('dd/MM/yyyy HH:mm:ss').format(dateTime);
+    String subtitleText = 'Deadline: $formattedDate \n$taskDescription';
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(4),
@@ -35,10 +39,12 @@ class TaskCompleted extends StatelessWidget {
         title: Text(
           taskName,
           style: TextStyle(
-              decoration: TextDecoration.lineThrough,
-              color: Colors.white),
+              decoration: TextDecoration.lineThrough, color: Colors.white),
         ),
-        subtitle: Text(taskDescription, style:  TextStyle(color: Colors.grey),),
+        subtitle: Text(
+          subtitleText,
+          style: TextStyle(color: Colors.grey),
+        ),
         trailing: IconButton(
           icon: Icon(
             Icons.delete,

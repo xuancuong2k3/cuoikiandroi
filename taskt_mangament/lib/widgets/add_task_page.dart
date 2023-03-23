@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:taskt_mangament/widgets/home_page.dart';
+import 'package:intl/intl.dart';
 import 'package:taskt_mangament/models/task.dart';
 
 class AddTaskPage extends StatefulWidget {
@@ -14,6 +14,8 @@ class AddTaskPage extends StatefulWidget {
 class _AddTaskPageState extends State<AddTaskPage> {
   late TextEditingController _titleController;
   late TextEditingController _descriptionController;
+  DateTime _selectedDate = DateTime.now();
+  TextEditingController _dateController = TextEditingController();
 
   @override
   void initState() {
@@ -45,9 +47,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
               controller: _titleController,
               decoration: InputDecoration(
                 labelText: 'Title',
-                labelStyle: TextStyle(
-                  color: Colors.white
-                ),
+                labelStyle: TextStyle(color: Colors.white),
               ),
               style: TextStyle(color: Colors.white),
             ),
@@ -55,12 +55,44 @@ class _AddTaskPageState extends State<AddTaskPage> {
             TextField(
               controller: _descriptionController,
               decoration: InputDecoration(
-                labelText: 'Description',
-                labelStyle: TextStyle(
-                  color: Colors.white
-                )
+                  labelText: 'Description',
+                  labelStyle: TextStyle(color: Colors.white)),
+              style: TextStyle(color: Colors.white),
+            ),
+            SizedBox(height: 16.0),
+            TextFormField(
+              decoration: InputDecoration(
+                labelText: 'Due Date',
+                labelStyle: TextStyle(color: Colors.white),
               ),
               style: TextStyle(color: Colors.white),
+              readOnly: true,
+              controller: _dateController,
+              onTap: () async {
+                DateTime? pickedDate = await showDatePicker(
+                  context: context,
+                  initialDate: DateTime.now(),
+                  firstDate: DateTime(2022),
+                  lastDate: DateTime(2030),
+                );
+                if (pickedDate != null) {
+                  TimeOfDay? pickedTime = await showTimePicker(
+                    context: context,
+                    initialTime: TimeOfDay.now(),
+                  );
+                  if (pickedTime != null) {
+                    pickedDate = pickedDate.add(Duration(
+                      hours: pickedTime.hour,
+                      minutes: pickedTime.minute,
+                    ));
+                    setState(() {
+                      _selectedDate = pickedDate!;
+                      _dateController.text = DateFormat.yMd().add_Hm().format(pickedDate);
+                    });
+                  }
+                }
+              },
+              keyboardType: TextInputType.datetime,
             ),
             SizedBox(height: 16.0),
             ElevatedButton(
@@ -72,12 +104,16 @@ class _AddTaskPageState extends State<AddTaskPage> {
                   final Task newTask = Task(
                     title: title,
                     description: description,
+                    dateTime: _selectedDate,
                   );
                   widget.addTaskCallback(newTask);
                   Navigator.pop(context);
                 }
               },
-              child: Text('Add Task',style: TextStyle(color: Color(0xFF5C699F)),),
+              child: Text(
+                'Add Task',
+                style: TextStyle(color: Color(0xFF5C699F)),
+              ),
               style: ElevatedButton.styleFrom(
                 backgroundColor: Color(0xFF3B3B3B),
               ),

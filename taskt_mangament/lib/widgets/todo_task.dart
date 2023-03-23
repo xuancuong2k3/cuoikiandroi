@@ -8,6 +8,7 @@ class ToDoTask extends StatelessWidget {
   Function(bool?)? onChanged;
   final DateTime dateTime;
   VoidCallback? deleteFunction;
+  VoidCallback? editFunction;
 
   ToDoTask({
     super.key,
@@ -17,6 +18,7 @@ class ToDoTask extends StatelessWidget {
     required this.onChanged,
     required this.dateTime,
     required this.deleteFunction,
+    required this.editFunction,
   });
 
   @override
@@ -41,13 +43,25 @@ class ToDoTask extends StatelessWidget {
           subtitleText,
           style: TextStyle(color: Colors.grey),
         ),
-        trailing: IconButton(
-          icon: Icon(
-            Icons.delete,
-            color: Colors.white,
-          ),
-          onPressed: deleteFunction,
-        ),
+        trailing: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            IconButton(
+              icon: const Icon(
+                Icons.edit,
+                color: Colors.white,
+              ),
+              onPressed: editFunction,
+            ),
+            IconButton(
+              icon: Icon(
+              Icons.delete,
+              color: Colors.white,
+              ),
+              onPressed: deleteFunction,
+            ),
+          ]
+        )
       ),
     );
   }

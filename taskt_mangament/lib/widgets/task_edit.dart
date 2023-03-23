@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:taskt_mangament/models/task.dart';
 
-class AddTaskPage extends StatefulWidget {
+class EditTaskPage extends StatefulWidget {
   final Function(Task) addTaskCallback;
 
-  AddTaskPage({required this.addTaskCallback});
+  EditTaskPage({required this.addTaskCallback});
 
   @override
-  _AddTaskPageState createState() => _AddTaskPageState();
+  _EditTaskPageState createState() => _EditTaskPageState();
 }
 
-class _AddTaskPageState extends State<AddTaskPage> {
+class _EditTaskPageState extends State<EditTaskPage> {
   late TextEditingController titleController;
   late TextEditingController descriptionController;
   DateTime selectedDate = DateTime.now();
@@ -114,7 +114,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
                 backgroundColor: Color(0xFF3B3B3B),
               ),
               child: Text(
-                'Add Task',
+                'Save',
                 style: TextStyle(color: Color(0xFF5C699F)),
               ),
             ),

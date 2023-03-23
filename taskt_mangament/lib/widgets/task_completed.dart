@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:taskt_mangament/widgets/task_edit.dart';
 
 class TaskCompleted extends StatelessWidget {
   final String taskName;
@@ -8,6 +9,7 @@ class TaskCompleted extends StatelessWidget {
   final DateTime dateTime;
   Function(bool?)? onChanged;
   VoidCallback? deleteFunction;
+  VoidCallback? editFunction;
 
   TaskCompleted({
     super.key,
@@ -17,6 +19,7 @@ class TaskCompleted extends StatelessWidget {
     required this.dateTime,
     required this.onChanged,
     required this.deleteFunction,
+    required this.editFunction,
   });
 
   @override
@@ -45,13 +48,25 @@ class TaskCompleted extends StatelessWidget {
           subtitleText,
           style: TextStyle(color: Colors.grey),
         ),
-        trailing: IconButton(
-          icon: Icon(
-            Icons.delete,
-            color: Colors.white,
-          ),
-          onPressed: deleteFunction,
-        ),
+        trailing: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            IconButton(
+              icon: const Icon(
+                Icons.edit,
+                color: Colors.white,
+              ),
+              onPressed: editFunction,
+            ),
+            IconButton(
+              icon: const Icon(
+                Icons.delete,
+                color: Colors.white,
+              ),
+              onPressed: deleteFunction,
+            ),
+          ],
+        )
       ),
     );
   }

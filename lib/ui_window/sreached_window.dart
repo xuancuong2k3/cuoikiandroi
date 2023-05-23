@@ -62,10 +62,7 @@ class _SearchedList extends State<SearchedList> {
             child: ListTile(
               title: Text(
                 cocktailName,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
-                ),
+                style: kListTextStyle,
               ),
               onTap: () async {
                 if (cocktailName == null) return;
